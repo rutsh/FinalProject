@@ -76,8 +76,23 @@ export function FormDialog() {
     }
 
     useEffect(()=>{
-       console.log(transcript);
-    },[transcript]);
+
+        console.log(transcript);
+        const arr=transcript.split("");
+        console.log(arr);
+        let newSum="";
+        arr.forEach((item)=>{
+         if(parseInt(item)==item)
+         {
+             newSum+=item;
+         }
+        });
+        console.log(newSum);
+        setSum(newSum);
+ 
+        
+     },[transcript]);
+     
     
     useEffect(() => {
 
@@ -154,7 +169,7 @@ export function FormDialog() {
 
             </div>
 
-            {/* <img src="../images/1.png" className="imgBoard" /> */}
+            <img src="../images/1.png" className="imgBoard" />
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <form onSubmit={handleCloseSubmit}>
@@ -164,8 +179,7 @@ export function FormDialog() {
                         <DialogContentText>
                             הכנס סכום הוצאה
                         </DialogContentText>
-                        <button onClick={SpeechRecognition.startListening}><KeyboardVoiceIcon/></button>
-
+                        <div className='microphone' onClick={SpeechRecognition.startListening}><KeyboardVoiceIcon/></div>
                         <TextField
                             name="sum"
                             autoFocus
@@ -175,6 +189,7 @@ export function FormDialog() {
                             type="number"
                             fullWidth
                             defaultValue={sum}
+                            
                             onChange={(event) => setSum(event.target.value)}
                         />
                     </DialogContent>
