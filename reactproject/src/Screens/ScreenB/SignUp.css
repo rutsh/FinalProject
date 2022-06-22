@@ -1,0 +1,16 @@
+.MuiAvatar-root{
+    background-color: green !important;
+}
+
+.MuiTypography-root{
+    color: black !important;
+}
+.MuiIconButton-root{
+    color: green !important;
+}
+.errorName{
+    color: red;
+}
+.NoterrorName{
+    display: none;
+}
