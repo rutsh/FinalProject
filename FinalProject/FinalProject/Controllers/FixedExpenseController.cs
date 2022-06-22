@@ -35,9 +35,9 @@ namespace FinalProject.Controllers
       
         [HttpGet]
         [Route("GetByCategory/{categoryid}/{userId}")]
-        public async Task<ActionResult<List<FixedExpenseDTO>>> GetByCategory(int categoryid,int userId)
+        public async Task<ActionResult<List<FixedExpenseDTO>>> GetByCategory(int categoryId,int userId)
         {
-            return await _FixedExpenseBL.GetByCategory(categoryid, userId);
+            return await _FixedExpenseBL.GetByCategory(categoryId, userId);
         }
 
       
