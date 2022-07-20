@@ -60,3 +60,25 @@ body{
     cursor: pointer;
     height: fit-content;
 }
+
+.MuiButton-containedPrimary{
+    background-color:white !important;
+}
+
+.MuiButton-label{
+    color: green !important;
+    margin-right: 0vw;
+}
+
+.categoryImg{
+    width: 5vw;
+    margin-top: 0%;
+    margin-right: 3vw;
+    margin-bottom: 0vh;
+}
+
+.categoryButton{
+    display: flex;
+    align-items:center;
+    
+}

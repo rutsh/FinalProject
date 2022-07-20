@@ -30,7 +30,6 @@ export function FormDialog() {
     const [expenses, setExpenses] = useState([]);
     const [sum, setSum] = useState(0);
     const [prevExpense, setPrevExpense] = useState(null);
-    let record=null;
     let user;
     let lastExpense = null;
 
@@ -42,11 +41,11 @@ export function FormDialog() {
             console.log(categories);
         });
 
-        if (localStorage.getItem("currentUser") != "undefined") {
-            user = JSON.parse(localStorage.getItem('currentUser')).data;
+        if (localStorage.getItem("currentUser") != "undefined"&&localStorage.getItem("currentUser") != null) {
+            user = JSON.parse(localStorage.getItem('currentUser'));
             console.log(user);
 
-            getExpenseByUserId(user.userId).then((data) => {
+            getExpenseByUserId(user.data.userId).then((data) => {
                 console.log(data);
                 setExpenses(data.data);
 
@@ -63,6 +62,7 @@ export function FormDialog() {
     const handleClickOpen = (value) => {
 
         SetCategory(value);
+
     };
 
     const {
@@ -70,34 +70,37 @@ export function FormDialog() {
         browserSupportsSpeechRecognition
     } = useSpeechRecognition();
 
-    
+
     if (!browserSupportsSpeechRecognition) {
         console.log("Browser doesn't support speech recognition");
     }
 
-    useEffect(()=>{
+    useEffect(() => {
 
         console.log(transcript);
-        const arr=transcript.split("");
+        const arr = transcript.split(" ");
         console.log(arr);
-        let newSum="";
-        arr.forEach((item)=>{
-         if(parseInt(item)==item)
-         {
-             newSum+=item;
-         }
+        let newSum = "";
+        arr.forEach((item) => {
+            if (parseInt(item) == item) {
+                newSum = item;
+            }
         });
         console.log(newSum);
         setSum(newSum);
- 
-        
-     },[transcript]);
-     
-    
+        const input = document.getElementById('sumInput');
+        if (input != null) {
+            input.value = newSum;
+        }
+
+
+    }, [transcript]);
+
+
     useEffect(() => {
 
         console.log(category);
-
+        setPrevExpense(null);
         if (expenses != null && expenses.length != 0) {
             const expenseByCategory = expenses.filter(e => e.fixedExCategory === category.categoryId);
             setSum(0);
@@ -151,7 +154,7 @@ export function FormDialog() {
 
     const classes = useStyles();
 
-   
+
     return (
         <div>
 
@@ -163,7 +166,9 @@ export function FormDialog() {
                 {categories ?
                     categories.filter(c => c.categoryFixed).map((c) => (
                         <Button variant="contained" color="primary" value={c.categoryName} onClick={(event) => handleClickOpen(c)}>
+                           <div className='categoryButton'> <br/>
                             {c.categoryName}
+                           </div>
                         </Button>)
                     ) : <p></p>}
 
@@ -179,17 +184,16 @@ export function FormDialog() {
                         <DialogContentText>
                             הכנס סכום הוצאה
                         </DialogContentText>
-                        <div className='microphone' onClick={SpeechRecognition.startListening}><KeyboardVoiceIcon/></div>
+                        <div className='microphone' onClick={SpeechRecognition.startListening}><KeyboardVoiceIcon /></div>
                         <TextField
                             name="sum"
                             autoFocus
                             margin="dense"
-                            id="name"
+                            id="sumInput"
                             label="סכום"
                             type="number"
                             fullWidth
                             defaultValue={sum}
-                            
                             onChange={(event) => setSum(event.target.value)}
                         />
                     </DialogContent>
@@ -203,6 +207,7 @@ export function FormDialog() {
                     </DialogActions>
                 </form>
             </Dialog>
+            <Button variant="contained" color="primary"> המשך</Button>
         </div>
     );
 }

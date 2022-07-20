@@ -16,6 +16,7 @@ import { AddUser } from './apiB';
 import '../ScreenB/SignUp.css';
 import { display } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
+
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -127,9 +128,9 @@ export function SignUp() {
                                 autoComplete="name"
                             //  disabled={userNameValidate}
                             />
-                            <div className="errorName"  >
+                            {/* <div className="errorName"  >
                                 <label>שם המשתמש אינו תקין</label>
-                            </div>
+                            </div> */}
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
@@ -195,9 +196,9 @@ export function SignUp() {
                     </Grid>
                 </form>
             </div>
-            <Box mt={5}>
+            {/* <Box mt={5}>
                 <Copyright />
-            </Box>
+            </Box> */}
         </Container>
     );
 }
